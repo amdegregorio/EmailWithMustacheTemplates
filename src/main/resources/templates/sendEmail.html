@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<link th:href="@{/style/main.css}" type="text/css" rel="stylesheet" media="screen,projection"/>
+<title>Send Email</title>
+</head>
+<body>
+<div class="input-form">
+<form th:action="send" th:object="${emailDto}" method="post">
+  <div>
+     <label class="active" for="to">To</label>
+	 <input th:field="*{to}" id="to" type="email"/>
+   </div>
+   <div>
+     <label class="active" for="subject">Subject</label>
+	 <input th:field="*{subject}" id="subject" type="text"/>
+   </div>
+   <div class="grouping">
+     Tasks
+     <hr>
+   </div>
+   <div>
+     <ul id="taskList">
+        <li th:each="number, stat : *{tasks}" class="childDisplay">
+           <div>
+             <input th:field="*{tasks[__${stat.index}__]}" th:id="${'tasks-'+stat.index}" type="text"/>
+	       </div>
+	    </li>
+	  </ul>
+	  <button type="button" onclick="addTask()">Add</button>
+   </div>
+   <div>
+     <button type="submit" name="send">Send</button>
+   </div>
+</form>
+</div>
+<script type="text/javascript">
+   var x= [];
+   var index = 1;
+
+   function addTask(){
+	  var taskList = document.getElementById('taskList');
+	  var newLi = document.createElement('li');
+	  newLi.setAttribute("class", "childDisplay");
+	  var newDiv = document.createElement('div');
+	  var newTask = document.createElement('input');
+	  newTask.setAttribute("name", "tasks[" + index + "]");
+	  newTask.setAttribute("id", "tasks-" + index);
+	  newTask.setAttribute("type", "text");
+      newDiv.appendChild(newTask);
+      newLi.appendChild(newDiv);
+      taskList.appendChild(newLi);
+      index = index + 1;
+ }
+ </script>
+</body>
+</html>
