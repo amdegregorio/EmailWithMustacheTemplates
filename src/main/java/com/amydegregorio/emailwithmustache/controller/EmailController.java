@@ -2,7 +2,6 @@ package com.amydegregorio.emailwithmustache.controller;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.Iterator;
 
 import javax.validation.Valid;
 
